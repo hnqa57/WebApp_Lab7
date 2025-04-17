@@ -1,0 +1,6 @@
+com\university\util\DBUtil.class
+com\lab\lab7_ex\JakartaRestConfiguration.class
+com\university\model\Student.class
+com\university\controller\StudentController.class
+com\university\dao\StudentDAO.class
+com\lab\lab7_ex\resources\JakartaEE10Resource.class

@@ -1,6 +1,9 @@
+D:\HCMIU\Lab\Web application development\Lab7\Lab7_ex\src\main\java\com\university\model\Course.java
 D:\HCMIU\Lab\Web application development\Lab7\Lab7_ex\src\main\java\com\lab\lab7_ex\JakartaRestConfiguration.java
 D:\HCMIU\Lab\Web application development\Lab7\Lab7_ex\src\main\java\com\university\controller\StudentController.java
+D:\HCMIU\Lab\Web application development\Lab7\Lab7_ex\src\main\java\com\university\dao\CourseDAO.java
 D:\HCMIU\Lab\Web application development\Lab7\Lab7_ex\src\main\java\com\university\dao\StudentDAO.java
 D:\HCMIU\Lab\Web application development\Lab7\Lab7_ex\src\main\java\com\university\model\Student.java
+D:\HCMIU\Lab\Web application development\Lab7\Lab7_ex\src\main\java\com\university\controller\CourseController.java
 D:\HCMIU\Lab\Web application development\Lab7\Lab7_ex\src\main\java\com\university\util\DBUtil.java
 D:\HCMIU\Lab\Web application development\Lab7\Lab7_ex\src\main\java\com\lab\lab7_ex\resources\JakartaEE10Resource.java

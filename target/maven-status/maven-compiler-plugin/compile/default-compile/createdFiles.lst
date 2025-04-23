@@ -1,5 +1,8 @@
 com\university\util\DBUtil.class
 com\lab\lab7_ex\JakartaRestConfiguration.class
+com\university\controller\CourseController.class
+com\university\dao\CourseDAO.class
+com\university\model\Course.class
 com\university\model\Student.class
 com\university\controller\StudentController.class
 com\university\dao\StudentDAO.class

@@ -110,6 +110,25 @@
                     <a href="${pageContext.request.contextPath}/students"
                        class="btn">Manage Students</a>
                 </div>
+                       
+                <div class="feature-box">
+                    <h3>View Course</h3>
+                    <p>Access and view all course currently in the system.</p>
+                    <a href="${pageContext.request.contextPath}/courses"class="btn">View Course</a>
+                </div>
+                
+                 <div class="feature-box">
+                    <h3>Add new Course</h3>
+                    <p>Add new course to the system</p>
+                    <a href="${pageContext.request.contextPath}/course/new"class="btn">Add new course</a>
+                </div>
+                
+                 <div class="feature-box">
+                    <h3>Manage Course</h3>
+                    <p>Edit and update existing student records or remove</p>
+                    <a href="${pageContext.request.contextPath}/courses"class="btn">Manage Course</a>
+                </div>  
+                
             </div>
         </div>
 

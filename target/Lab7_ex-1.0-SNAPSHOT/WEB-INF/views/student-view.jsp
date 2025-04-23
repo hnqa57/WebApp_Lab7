@@ -17,9 +17,8 @@
         </div>
         <div style="margin-bottom: 15px;">
             <strong>Registration Date:</strong>
-            <fmt:parseDate value="${student.registrationDate}" pattern="yyyyMM-dd'T'HH:mm" var="parsedDate" type="both" />
-            <fmt:formatDate value="${parsedDate}" type="both" pattern="MMMM
-                            d, yyyy h:mm a" />
+          <fmt:parseDate value="${student.registrationDate}" pattern="yyyy-MM-dd'T'HH:mm" var="parsedDate" />
+          <fmt:formatDate value="${parsedDate}" pattern="MMMM d, yyyy h:mm a" />
         </div>
     </div>
 

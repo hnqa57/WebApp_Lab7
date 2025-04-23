@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.university.dao.CourseDAO;
 import com.university.model.Course;
-import com.university.model.Student;
-import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -122,6 +120,6 @@ public class CourseController extends HttpServlet {
             throws IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         courseDAO.deleteCourse(id);
-        response.sendRedirect(request.getContextPath() + "/Courses");
+        response.sendRedirect(request.getContextPath() + "/courses");
     }
 }

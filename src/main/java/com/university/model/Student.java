@@ -4,7 +4,7 @@ public class Student {
  private int id;
  private String name;
  private String email;
- private String course;
+ private Course course;
  private LocalDateTime registrationDate;
 
  // Default constructor
@@ -12,7 +12,7 @@ public class Student {
  }
 
  // Constructor with fields
- public Student(int id, String name, String email, String course) {
+ public Student(int id, String name, String email, Course course) {
  this.id = id;
  this.name = name;
  this.email = email;
@@ -44,11 +44,11 @@ public class Student {
  this.email = email;
  }
 
- public String getCourse() {
+ public Course getCourse() {
  return course;
  }
 
- public void setCourse(String course) {
+ public void setCourse(Course course) {
  this.course = course;
  }
 

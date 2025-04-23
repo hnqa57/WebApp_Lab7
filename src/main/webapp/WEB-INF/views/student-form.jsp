@@ -22,20 +22,16 @@
            required />
 </div>
 
-<div class="form-group">
-    <label for="course">Course:</label>
-    <select id="course" name="course" required>
+    <div class="form-group">
+    <label>Course:</label>
+    <select name="courseId" class="form-control" required>
         <option value="">-- Select Course --</option>
-        <option value="Computer Science" ${student.course == 'Computer
-                                           Science' ? 'selected' : ''}>Computer Science</option>
-        <option value="Information Technology" ${student.course ==
-                                                 'Information Technology' ? 'selected' : ''}>Information Technology</option>
-        <option value="Software Engineering" ${student.course ==
-                                               'Software Engineering' ? 'selected' : ''}>Software Engineering</option>
-        <option value="Data Science" ${student.course == 'Data Science' ?
-                                       'selected' : ''}>Data Science</option>
-        <option value="Cybersecurity" ${student.course == 'Cybersecurity'
-                                        ? 'selected' : ''}>Cybersecurity</option>
+        <c:forEach items="${courses}" var="course">
+            <option value="${course.id}" 
+                ${student.course != null && student.course.id == course.id ? 'selected' : ''}>
+                ${course.code} - ${course.name}
+            </option>
+        </c:forEach>
     </select>
 </div>
 

@@ -4,6 +4,15 @@
     <p>No students found.</p>
 </c:if>
 <c:if test="${students.size() > 0}">
+    <form action="${pageContext.request.contextPath}/student/search" method="GET" class="search-form">
+        <input type="text" name="searchTerm" id="search" placeholder="Search by name or email" 
+               value="${param.searchTerm}">
+        <button type="submit" class="btn">Search</button>
+        <c:if test="${not empty param.searchTerm}">
+            <a href="${pageContext.request.contextPath}/student/list" class="btn">Clear</a>
+        </c:if>
+    </form>
+
     <table>
         <thead>
             <tr>
@@ -37,6 +46,8 @@
             </c:forEach>
         </tbody>
     </table>
+
+    <a href="${pageContext.request.contextPath}/student/report" class="btn">Edit</a> 
 </c:if>
 <a href="${pageContext.request.contextPath}/student/new" class="btn">Add New Student</a>
-    <%@ include file="footer.jsp" %>
+<%@ include file="footer.jsp" %>

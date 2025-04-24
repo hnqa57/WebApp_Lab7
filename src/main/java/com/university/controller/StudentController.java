@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "StudentController", urlPatterns = {"/students", "/student/*"})
 public class StudentController extends HttpServlet {
@@ -32,12 +33,17 @@ public class StudentController extends HttpServlet {
 
         String pathInfo = request.getPathInfo();
         String action = request.getParameter("action");
+  
 
         if (pathInfo == null && action == null) {
             listStudents(request, response);
         } else if ("/new".equals(pathInfo)) {
             showNewForm(request, response);
-        } else if ("/edit".equals(pathInfo)) {
+        } 
+        else if("/search".equals(pathInfo)){
+             searchStudent(request, response);
+        }
+        else if ("/edit".equals(pathInfo)) {
             showEditForm(request, response);
         } else if ("/delete".equals(pathInfo)) {
             deleteStudent(request, response);
@@ -80,7 +86,7 @@ public class StudentController extends HttpServlet {
 
     private void showNewForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("courses", courseDAO.getAllCourses()); // Optional: preload courses
+        request.setAttribute("courses", courseDAO.getAllCourses()); 
         request.getRequestDispatcher("/WEB-INF/views/student-form.jsp").forward(request, response);
     }
 
@@ -89,7 +95,7 @@ public class StudentController extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         Student student = studentDAO.getStudentById(id);
         request.setAttribute("student", student);
-        request.setAttribute("courses", courseDAO.getAllCourses()); // Optional
+        request.setAttribute("courses", courseDAO.getAllCourses());
         request.getRequestDispatcher("/WEB-INF/views/student-form.jsp").forward(request, response);
     }
 
@@ -126,7 +132,19 @@ public class StudentController extends HttpServlet {
         studentDAO.updateStudent(student);
         response.sendRedirect(request.getContextPath() + "/students");
     }
+    public void searchStudent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+       String searchItem = request.getParameter("searchTerm");
+        List<Student> students = studentDAO.searchStudents(searchItem);
+        request.setAttribute("students", students);
+        request.getRequestDispatcher("/WEB-INF/views/student-list.jsp").forward(request, response);
+    }
 
+    public void generateReport(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        Map<String, Object> report = studentDAO.generateStudyReport();
+        request.setAttribute("report", report);
+        request.getRequestDispatcher("/WEB-INF/views/student-list.jsp").forward(request, response);
+    }
+    
     private void deleteStudent(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         int id = Integer.parseInt(request.getParameter("id"));

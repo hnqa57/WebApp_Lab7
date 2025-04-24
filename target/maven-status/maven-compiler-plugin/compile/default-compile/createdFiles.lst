@@ -5,6 +5,5 @@ com\university\dao\CourseDAO.class
 com\university\model\Course.class
 com\university\model\Student.class
 com\university\controller\StudentController.class
-com\university\controller\courseDAO.class
 com\university\dao\StudentDAO.class
 com\lab\lab7_ex\resources\JakartaEE10Resource.class

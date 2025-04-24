@@ -4,12 +4,10 @@ import com.university.model.Student;
 import com.university.model.Course;
 import com.university.util.DBUtil;
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDAO {
-    private final CourseDAO courseDAO = new CourseDAO();
 
     public List<Student> getAllStudents() {
         List<Student> students = new ArrayList<>();
@@ -116,12 +114,10 @@ public class StudentDAO {
         student.setName(rs.getString("name"));
         student.setEmail(rs.getString("email"));
         
-        // Map registration date
         if (rs.getTimestamp("registration_date") != null) {
             student.setRegistrationDate(rs.getTimestamp("registration_date").toLocalDateTime());
         }
         
-        // Map course if it exists
         if (rs.getInt("course_id") > 0) {
             Course course = new Course();
             course.setId(rs.getInt("course_id"));
@@ -134,4 +130,5 @@ public class StudentDAO {
         
         return student;
     }
+
 }

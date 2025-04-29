@@ -1,19 +1,25 @@
 package com.university.controller;
 
+import com.itextpdf.io.source.OutputStream;
 import com.university.dao.StudentDAO;
 import com.university.dao.CourseDAO;
 import com.university.model.Course;
 import com.university.model.Student;
+import com.university.service.PdfReportService;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @WebServlet(name = "StudentController", urlPatterns = {"/students", "/student/*"})
 public class StudentController extends HttpServlet {
@@ -49,7 +55,15 @@ public class StudentController extends HttpServlet {
             deleteStudent(request, response);
         } else if ("/view".equals(pathInfo)) {
             viewStudent(request, response);
-        } else {
+        }
+        else if("/report".equals(pathInfo)){
+            try {
+                generateStudentReport(response);
+            } catch (Exception ex) {
+                Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else {
             listStudents(request, response);
         }
     }
@@ -139,11 +153,7 @@ public class StudentController extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/views/student-list.jsp").forward(request, response);
     }
 
-    public void generateReport(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        Map<String, Object> report = studentDAO.generateStudyReport();
-        request.setAttribute("report", report);
-        request.getRequestDispatcher("/WEB-INF/views/student-list.jsp").forward(request, response);
-    }
+  
     
     private void deleteStudent(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
@@ -151,4 +161,22 @@ public class StudentController extends HttpServlet {
         studentDAO.deleteStudent(id);
         response.sendRedirect(request.getContextPath() + "/students");
     }
+    
+ 
+public void generateStudentReport(HttpServletResponse response) throws Exception {
+    List<Student> students = studentDAO.getAllStudents();
+    
+
+    PdfReportService pdfService = new PdfReportService();
+    ByteArrayOutputStream pdfStream = pdfService.generateStudentReport(students);
+    
+    response.setContentType("application/pdf");
+    response.setHeader("Content-Disposition", "attachment; filename=student_report.pdf");
+    response.setContentLength(pdfStream.size());
+    
+    try (ServletOutputStream out = response.getOutputStream()) {
+        pdfStream.writeTo(out);
+        out.flush();
+    }
+}
 }

@@ -22,7 +22,7 @@
                 <td>${course.id}</td>
                 <td>${course.code}</td>
                 <td>${course.name}</td>
-                <td>${course.credits}</td> <!-- Fixed typo -->
+                <td>${course.credits}</td>
                 <td>
                     <a href="${pageContext.request.contextPath}/course/view?id=${course.id}" class="btn">View</a>
                     <a href="${pageContext.request.contextPath}/course/edit?id=${course.id}" class="btn">Edit</a>

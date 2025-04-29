@@ -1,68 +1,76 @@
 package com.university.model;
+
 import java.time.LocalDateTime;
+
 public class Student {
- private int id;
- private String name;
- private String email;
- private Course course;
- private LocalDateTime registrationDate;
 
- // Default constructor
- public Student() {
- }
+    private int id;
+    private String name;
+    private String email;
+    private Course course;
+    private LocalDateTime registrationDate;
 
- // Constructor with fields
- public Student(int id, String name, String email, Course course) {
- this.id = id;
- this.name = name;
- this.email = email;
- this.course = course;
- }
+   
+    public Student() {
+        this.registrationDate = this.registrationDate = LocalDateTime.now();
+    }
 
- // Getters and Setters
- public int getId() {
- return id;
- }
+    
+    public Student(int id, String name, String email, Course course) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.course = course;
+    }
 
- public void setId(int id) {
- this.id = id;
- }
+    public int getId() {
+        return id;
+    }
 
- public String getName() {
- return name;
- }
+    public void setId(int id) {
+        this.id = id;
+    }
 
- public void setName(String name) {
- this.name = name;
- }
+    public String getName() {
+        return name;
+    }
 
- public String getEmail() {
- return email;
- }
+    public void setName(String name) {
+        this.name = name;
+    }
 
- public void setEmail(String email) {
- this.email = email;
- }
+    public String getEmail() {
+        return email;
+    }
 
- public Course getCourse() {
- return course;
- }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
- public void setCourse(Course course) {
- this.course = course;
- }
+    public Course getCourse() {
+        return course;
+    }
 
- public LocalDateTime getRegistrationDate() {
- return registrationDate;
- }
+    public void setCourse(Course course) {
+        this.course = course;
+    }
 
- public void setRegistrationDate(LocalDateTime registrationDate) {
- this.registrationDate = registrationDate;
- }
+    public LocalDateTime getRegistrationDate() {
+        return registrationDate;
+    }
 
- @Override
- public String toString() {
- return "Student{" + "id=" + id + ", name='" + name + "', email='" +
-email + "', course='" + course + "'}";
- }
+    public void setRegistrationDate(LocalDateTime registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + ", email='" + email + '\''
+                + ", course=" + course
+                + ", registrationDate=" + registrationDate
+                + '}';
+    }
 }

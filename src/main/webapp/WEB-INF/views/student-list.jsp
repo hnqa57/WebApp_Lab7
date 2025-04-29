@@ -29,7 +29,7 @@
                     <td>${student.id}</td>
                     <td>${student.name}</td>
                     <td>${student.email}</td>
-                    <td>${student.course}</td>
+                    <td>${student.course.name}</td>
                     <td>
                         <a
                             href="${pageContext.request.contextPath}/student/view?id=${student.id}"
@@ -46,8 +46,9 @@
             </c:forEach>
         </tbody>
     </table>
-
-    <a href="${pageContext.request.contextPath}/student/report" class="btn">Edit</a> 
+    <a href="${pageContext.request.contextPath}/student/report" class="btn btn-primary">
+        Download PDF Report
+    </a>    
 </c:if>
 <a href="${pageContext.request.contextPath}/student/new" class="btn">Add New Student</a>
 <%@ include file="footer.jsp" %>

@@ -11,13 +11,11 @@ public class StudentDAO {
 
     public List<Student> getAllStudents() {
         List<Student> students = new ArrayList<>();
-        String sql = "SELECT s.*, c.id as course_id, c.code as course_code, c.name as course_name, " +
-                     "c.description as course_description, c.credits as course_credits " +
-                     "FROM students s LEFT JOIN courses c ON s.course_id = c.id";
+        String sql = "SELECT s.*, c.id as course_id, c.code as course_code, c.name as course_name, "
+                + "c.description as course_description, c.credits as course_credits "
+                + "FROM students s LEFT JOIN courses c ON s.course_id = c.id";
 
-        try (Connection conn = DBUtil.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+        try (Connection conn = DBUtil.getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
                 Student student = mapStudentFromResultSet(rs);
@@ -30,13 +28,12 @@ public class StudentDAO {
     }
 
     public Student getStudentById(int id) {
-        String sql = "SELECT s.*, c.id as course_id, c.code as course_code, c.name as course_name, " +
-                     "c.description as course_description, c.credits as course_credits " +
-                     "FROM students s LEFT JOIN courses c ON s.course_id = c.id WHERE s.id = ?";
+        String sql = "SELECT s.*, c.id as course_id, c.code as course_code, c.name as course_name, "
+                + "c.description as course_description, c.credits as course_credits "
+                + "FROM students s LEFT JOIN courses c ON s.course_id = c.id WHERE s.id = ?";
         Student student = null;
 
-        try (Connection conn = DBUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DBUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, id);
             try (ResultSet rs = pstmt.executeQuery()) {
@@ -53,8 +50,7 @@ public class StudentDAO {
     public boolean addStudent(Student student) {
         String sql = "INSERT INTO students (name, email, course_id, registration_date) VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = DBUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        try (Connection conn = DBUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             pstmt.setString(1, student.getName());
             pstmt.setString(2, student.getEmail());
@@ -79,8 +75,7 @@ public class StudentDAO {
     public boolean updateStudent(Student student) {
         String sql = "UPDATE students SET name = ?, email = ?, course_id = ? WHERE id = ?";
 
-        try (Connection conn = DBUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DBUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, student.getName());
             pstmt.setString(2, student.getEmail());
@@ -97,8 +92,7 @@ public class StudentDAO {
     public boolean deleteStudent(int id) {
         String sql = "DELETE FROM students WHERE id = ?";
 
-        try (Connection conn = DBUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DBUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, id);
             return pstmt.executeUpdate() > 0;
@@ -113,11 +107,11 @@ public class StudentDAO {
         student.setId(rs.getInt("id"));
         student.setName(rs.getString("name"));
         student.setEmail(rs.getString("email"));
-        
+
         if (rs.getTimestamp("registration_date") != null) {
             student.setRegistrationDate(rs.getTimestamp("registration_date").toLocalDateTime());
         }
-        
+
         if (rs.getInt("course_id") > 0) {
             Course course = new Course();
             course.setId(rs.getInt("course_id"));
@@ -127,8 +121,35 @@ public class StudentDAO {
             course.setCredits(rs.getInt("course_credits"));
             student.setCourse(course);
         }
-        
+
         return student;
+    }
+
+    public List<Student> searchStudents(String searchTerm) {
+        List<Student> students = new ArrayList<>();
+
+        String sql = "SELECT s.*, c.id as course_id, c.code as course_code, c.name as course_name, "
+                + "c.description as course_description, c.credits as course_credits "
+                + "FROM students s LEFT JOIN courses c ON s.course_id = c.id "
+                + "WHERE LOWER(s.name) LIKE LOWER(?) OR LOWER(s.email) LIKE LOWER(?)";
+
+        try (Connection conn = DBUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            String searchPattern = "%" + searchTerm + "%";
+
+            pstmt.setString(1, searchPattern);
+            pstmt.setString(2, searchPattern);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Student student = mapStudentFromResultSet(rs);
+                    students.add(student);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return students;
     }
 
 }
